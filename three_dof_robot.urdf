@@ -1,0 +1,167 @@
+<?xml version="1.0" ?>
+
+<robot name="three_dof_robot">
+  <link name="base_link"/>
+  <link name="arm0"/>
+  <joint name="base_link_to_arm0" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="arm1">
+    <collision>
+      <origin rpy="0 1.5707963267948966 0" xyz="0.115 0 -0.0141"/>
+      <geometry>
+        <cylinder length="0.315" radius="0.0485"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 1.5707963267948966 0" xyz="0.115 0 -0.0141"/>
+      <geometry>
+        <cylinder length="0.315" radius="0.0485"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="arm2">
+    <collision>
+      <origin rpy="0 1.5707963267948966 0" xyz="0.115 0 -0.0141"/>
+      <geometry>
+        <cylinder length="0.315" radius="0.0485"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 1.5707963267948966 0" xyz="0.115 0 -0.0141"/>
+      <geometry>
+        <cylinder length="0.315" radius="0.0485"/>
+      </geometry>
+    </visual>
+  </link>  
+  <link name="arm3">
+    <collision>
+      <origin rpy="0 1.5707963267948966 0" xyz="0.115 0 -0.0141"/>
+      <geometry>
+        <cylinder length="0.315" radius="0.0485"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 1.5707963267948966 0" xyz="0.115 0 -0.0141"/>
+      <geometry>
+        <cylinder length="0.315" radius="0.0485"/>
+      </geometry>
+    </visual>
+  </link>  
+  <link name="arm_end_effector">
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0507 0 0.01"/>
+      <geometry>
+        <sphere radius="0.045"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0507 0 0.01"/>
+      <geometry>
+        <sphere radius="0.045"/>
+      </geometry>
+    </visual>
+  </link>
+
+
+  <link name="object_0"/>
+  <joint name="arm_end_effector_to_object" type="fixed">
+    <parent link="arm_end_effector"/>
+    <child link="object_0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="object_1">
+    <!-- first_part base -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.0157"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.065"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.0157"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.065"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="object_to_object1" type="fixed">
+    <parent link="object_0"/>
+    <child link="object_1"/>
+    <origin rpy="1.57 0 0" xyz="0 0.1 -0.1"/>
+  </joint>
+
+  <link name="object_2">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.0157"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.065"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.0157"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.065"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="object_to_object2" type="fixed">
+    <parent link="object_0"/>
+    <child link="object_2"/>
+    <origin rpy="3.14 0 0" xyz="0 -0.1 -0.1"/>
+  </joint>
+
+  <drake:collision_filter_group name="object">
+    <drake:member link="object_0"/>
+    <drake:member link="object_1"/>
+    <drake:member link="object_2"/>
+    <drake:ignored_collision_filter_group name="three_dof_robot"/>
+    <drake:ignored_collision_filter_group name="object"/>
+  </drake:collision_filter_group>
+
+
+  <joint name="arm0_to_arm1" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3" upper="3" velocity="10"/>
+    <origin rpy="0 0 1.5707963267948966" xyz="0 0 0"/>
+    <parent link="arm0"/>
+    <child link="arm1"/>
+  </joint>
+  <joint name="arm1_to_arm2" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3" upper="3" velocity="10"/>
+    <origin rpy="0 0 1.5707963267948966" xyz="0 0 0"/>
+    <parent link="arm1"/>
+    <child link="arm2"/>
+  </joint>
+
+  <joint name="arm2_to_arm3" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="300" lower="-3" upper="3" velocity="10"/>
+    <origin rpy="0 0 0" xyz="0.352 0 0.0788"/>
+    <parent link="arm2"/>
+    <child link="arm3"/>
+  </joint>
+
+  <joint name="arm3_to_arm_end_effector" type="fixed">
+    <origin rpy="0 0 0" xyz="0.352 0 0.0788"/>
+    <parent link="arm3"/>
+    <child link="arm_end_effector"/>
+  </joint>
+  
+  <drake:collision_filter_group name="three_dof_robot">
+    <drake:member link="arm0"/>
+    <drake:member link="arm1"/>
+    <drake:member link="arm2"/>
+    <drake:member link="arm3"/>
+    <drake:member link="arm_end_effector"/>
+    <drake:ignored_collision_filter_group name="object"/>
+    <drake:ignored_collision_filter_group name="three_dof_robot"/>
+  </drake:collision_filter_group>
+
+</robot>
