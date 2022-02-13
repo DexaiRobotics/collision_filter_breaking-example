@@ -23,7 +23,7 @@ TEST(ParseCollisionFilter, ThreeDofRobot) {
   auto& plant = result.plant;
   auto& scene_graph = result.scene_graph;
   auto parser = multibody::Parser(&plant, &scene_graph);
-  const std::string robot_path = "/src/dig/test_data/three_dof_robot.urdf";
+  const std::string robot_path = "three_dof_robot.urdf";
   const std::string robot_name = "3dof_robot";
   auto my_robot = parser.AddModelFromFile(robot_path, robot_name);
   plant.WeldFrames(plant.world_frame(),
