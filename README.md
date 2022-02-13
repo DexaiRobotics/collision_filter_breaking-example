@@ -1,4 +1,4 @@
-# drake collsion filter breakking example
+# drake collsion filter breaking example
 A minimal example on parsing collsion_filter_group problems in drake. Also added a customized URDF for 3dof robot. 
 
 The unit test fails on drake version 38:
